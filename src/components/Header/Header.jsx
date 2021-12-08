@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import "./Header.scss";
 import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
+import { withRouter } from "react-router-dom";
+
+
 
 class Header extends Component {
   constructor(props) {
@@ -97,4 +99,4 @@ class Header extends Component {
     );
   }
 }
-export default Header;
+export default withRouter(Header);

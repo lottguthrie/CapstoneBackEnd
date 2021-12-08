@@ -1,14 +1,18 @@
-import React from 'react';
-import reactDom from 'react-dom';
-import App from './components/App';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import Router from "react-router-dom";
 
+class MainApp extends React.Component {
+  render() {
+    return (
+    
+      <div className="content">
 
-reactDom.render(
-    <Router>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode> 
-    </Router>,
-    document.getElementById('root')
-);
+        <h1>Hello World</h1>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<MainApp />, document.getElementById("root"));

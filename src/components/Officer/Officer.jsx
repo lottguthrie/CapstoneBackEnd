@@ -1,25 +1,24 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import axios from 'axios';
-import './Officer.scss';
 import { withRouter } from "react-router-dom";
 import DailyReport from './DailyReport'
 
 
 const OfficerView = (props) => {
-    const [ dailyreport, setDailyReport] = useState([])
+    const [ DailyReport, setDailyReport] = useState([])
 
-    async function addToDailyReport(officerId){
+    async function addToDailyReport(officer_id){
         let token = localStorage.getItem('token')
      
         let newDailyReport={
-            officerId: parseInt(officerId),
-            reportId: "",
+            officer_id: parseInt(officer_id),
+            report_id: "",
             quantity: 1
         }
         let res = await axios.post('https://localhost:44394/api/DailyReport', newDailyReport, { headers: {Authorization: 'Bearer ' + token}})
         return res.data
       }
-    const getdailyreport = async () => {
+    const getDailyReport = async () => {
 
         try {
             let res = await axios.get('https://localhost:44394/api/DailyReport');
@@ -28,30 +27,30 @@ const OfficerView = (props) => {
             
         } catch (err) {
             console.log("An API error occured with dailyreports: ", err)
-            console.log(dailyreport)
+            console.log(DailyReport)
         }
     }
 
     useEffect(() => {
-        getdailyreport()
+        getDailyReport()
     },[])
 
     return(
         <Fragment>
          <div className="DailyReports">
             <h1 className='dailyreportMargin'>Browse Dailyreports</h1>
-            {dailyreport.map((dailyreport)=> (
+            {DailyReport.map((DailyReport)=> (
                 <div className='dailyreport'>
-                    <h2>{dailyreport.title}</h2>
-                    <h3>{dailyreport.title}</h3>
-                    <h3>{dailyreport.title}</h3>
+                   <h2>Officer{officer_id.last_name}</h2>
+                    <h3>{officer_id.first_name}</h3>
+                    <h3>{officer_id.middle_name}</h3>
                     <div>
-                        <h3>{dailyreport.title}</h3>
-                        <h3>{dailyreport.title}</h3>
+                        <h3>{officer_id.badge_number}</h3>
+                        <h3>{officer_id.officer_id}</h3>
                     </div>    
-                    <div className='dailyreportname'><h3>$ {dailyreport.title}</h3></div>
-                    <button onClick={()=>addToDailyReport(dailyreport.DailyreportId)}>Submit To Supervisor</button>
-                    <button onClick={()=>addToDailyReport(dailyreport.OfficerId)}>Add Daily Report</button>
+                    <div className='DailyReportName'><h3>$ {DailyReport.OfficerView}</h3></div>
+                    <button onClick={()=>addToDailyReport(DailyReport.report_id)}>Submit To Supervisor</button>
+                    <button onClick={()=>addToDailyReport(DailyReport.officer_id)}>Add Daily Report</button>
 
                 </div>
                 )

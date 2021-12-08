@@ -1,5 +1,5 @@
 import React from 'react'
-import './Home.scss'
+import { withRouter } from "react-router-dom";
 
 
 export default function Home() {
@@ -11,3 +11,4 @@ export default function Home() {
         </div>
     )
 }
+

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import './App.scss';
 import jwtDecode from 'jwt-decode'
 import { useState, useEffect } from 'react';
 import Registration from './Registration/Registration';
+import FilterSearch from './SearchBar/SearchBar';
 import Login from './Login/Login';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Header from './Header/Header'
@@ -12,6 +12,7 @@ import SupervisorReport from './Supervisor/SupervisorReport';
 import DailyReport from './Officer/DailyReport'
 import Officer from './Officer/Officer'
 import Supervisor from './Supervisor/Supervisor'
+import { withRouter } from "react-router-dom";
 
 function App() {
     
@@ -56,9 +57,16 @@ function App() {
           console.log("User has logged out")
         }
 
+        filterOfficer = (filtered) => {
+          this.setState({
+              officers:filtered
+          })
+      }
+
         return (   
           <div>
           <Header logout={logOut}/> 
+          <FilterSearch search={this.state.officers} filterAction={this.filterOfficer} refresh={this.makeGetRequest}/>
             <Router>
                     <Route path="/" exact={true}>
                     <div className="sections">
@@ -110,4 +118,4 @@ function App() {
         )
 }
 
-export default App;
+export default withRouter(App);

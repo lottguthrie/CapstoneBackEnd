@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Logo from './partials/Logo';
 import FooterNav from './partials/FooterNav';
 import FooterSocial from './partials/FooterSocial';
+import { withRouter } from "react-router-dom";
 
 const propTypes = {
   topOuterDivider: PropTypes.bool,
@@ -56,4 +57,4 @@ const Footer = ({
 Footer.propTypes = propTypes;
 Footer.defaultProps = defaultProps;
 
-export default Footer;
+export default withRouter(Footer);

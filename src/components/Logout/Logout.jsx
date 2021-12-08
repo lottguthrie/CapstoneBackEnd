@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Logout.scss';
+import { withRouter } from "react-router-dom";
 
 class Logout extends Component{
     constructor(props){
@@ -30,4 +30,4 @@ class Logout extends Component{
     }
 }
  
-export default Logout;
+export default withRouter(Logout);
