@@ -1,9 +1,36 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useState, Component } from 'react';
 import axios from 'axios';
-import './Supervisor.css';
+import './Supervisor.scss';
 import { withRouter } from "react-router-dom";
-import dailyreport from '../Officer/DailyReport';
+import DailyReport from '../Officer/DailyReport';
 
+
+
+
+class Supervisor extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        officersearch: "",
+        search: "",
+        search: "",
+      };
+    }            
+  
+      handleSubmit = (event) => {
+          event.preventDefault();
+          this.props.officerSearch(this.state.search);
+        };
+  
+      handleSubmit = (event) => {
+          event.preventDefault();
+          this.props.supervisorSearch(this.state.search);
+        };
+  
+      handleSubmit = (event) => {
+          event.preventDefault();
+          this.props.dailyReportSearch(this.state.search);
+        };}
 
 const SupervisorView = (props) => {
     const [ supervisors, setSupervisor] = useState([])
@@ -32,43 +59,37 @@ const SupervisorView = (props) => {
         }
     }
 
-    useEffect(() => {
-        getSupervisors()
-    },[])
-
-    className= ReportCreatorView = (props) => {
-        const [ reportcreator, setReportCreator] = useState([])
+    const SupervisorReportView = async(props) => {
+        const [ supervisorReport, setSupervisorReport] = useState([])
     
-        async function addReportCreator(supervisorId){
+        async function addSupervisorReport(supervisorId){
             let token = localStorage.getItem('token')
          
-            let newReportCreator={
+            let newSupervisorReport={
                 SupervisorId: parseInt(supervisorId),
                 officerId: "",
                 reportId: "",
                 quantity: 1
             }
-            let res = await axios.post('https://localhost:44394/api/ReportCreator', newReportCreator, { headers: {Authorization: 'Bearer ' + token}})
+            let res = await axios.post('https://localhost:44394/api/SupervisorReport', newSupervisorReport, { headers: {Authorization: 'Bearer ' + token}})
             return res.data
           }
-        const getReportCreator = async () => {
+        const getSupervisorReport = async () => {
     
             try {
-                let res = await axios.get('https://localhost:44394/api/ReportCreator');
-                setReportCreator(res.data)
-                console.log("All reportcreator response: ",res.data)
+                let res = await axios.get('https://localhost:44394/api/SupervisorReport');
+                setSupervisorReport(res.data)
+                console.log("All supervisorreport response: ",res.data)
                 
             } catch (err) {
-                console.log("An API error occured with reportcreator: ", err)
-                console.log(reportcreator)
+                console.log("An API error occured with supervisorreport: ", err)
+                console.log(supervisorReport)
             }
         }
     
-        useEffect(() => {
-            getReportCreator()
-        },[])
 
-        className= DailyReportView = (props) => {
+
+        const DailyReportView = async(props) => {
             const [ dailyreport, setDailyReport] = useState([])
         
             async function addDailyReport(officerId){
@@ -96,23 +117,12 @@ const SupervisorView = (props) => {
             }
         
             useEffect(() => {
-                getDailyReport()
+                getDailyReport(DailyReportView)
+                getSupervisors(SupervisorView)
+                getSupervisorReport(SupervisorReportView)
             },[])
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.officerSearch(this.state.search);
-      };
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.reportCreatorSearch(this.state.search);
-      };
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.dailyReportSearch(this.state.search);
-      };
     return(
         <Fragment>
          <div className="Supervisor">
@@ -130,20 +140,20 @@ const SupervisorView = (props) => {
                 <h1 className='officerSearch'>Search Officers</h1>
                 <div class="search-container">
                     <form>
-                      <input type="text" placeholder="Search for officerer.." name="officerSearch" />
+                      <input type="text" placeholder="Search for officer.." name="officerSearch" />
                       <button type="submit">
                         <i class="fa fa-searchengin"></i>
                       </button>
                     </form>
                 </div>
-                <h1 className='reportCreatorSearch'>Search Supervisor Reports</h1>
+                <h1 className='supervisorReportSearch'>Search Supervisor Reports</h1>
                 <div class="search-container">
                     <form>
-                      <input type="text" placeholder="Search for supervisor report.." name="reportCreatorSearch" />
+                      <input type="text" placeholder="Search for supervisor report.." name="supervisorReportSearch" />
                       <button type="submit">
                         <i class="fa fa-searchengin"></i>
                       </button>
-                      <h3>{supervisor.ReportCreatorView}</h3>
+                      <h3>{supervisor.SupervisorReportView}</h3>
                     </form>
                 </div>
                 <h1 className='dailyReportSearch'>Search Daily Reports</h1>
@@ -157,24 +167,14 @@ const SupervisorView = (props) => {
                     </form>
                 </div>  
                     <button onClick={()=>addSupervisor(supervisor.SupervisorId)}>Add Supervisor</button>
-                    <button onClick={()=>addReportCreator(supervisor.SupervisorId)}>Add Supervisor Report</button>
+                    <button onClick={()=>addSupervisorReport(supervisor.SupervisorId)}>Add Supervisor Report</button>
                     <button onClick={()=>addDailyReport(supervisor.SupervisorId)}>Add Supervisor Daily Report</button>
                 </div>
                     /*put in shift information if possible*/
                 )
-                <div>
-                    <li>
-                        <Link to="/Dailyreport">
-                            <i class="fas fa-import"></i> Daily Report
-                        </Link>
-                        <Link to="/Reportcreator">
-                            <i class="fas fa-print"></i> Report Creator
-                        </Link>
-                        <Link to="/Survey">
-                            <i class="fas fa-rocketchat"></i> Employee Survey
-                        </Link>
-                    </li>  
-                    )
+             
+
+            )
                  }
         
                 </div>
@@ -185,4 +185,4 @@ const SupervisorView = (props) => {
     }
 }
 
-export default withRouter(SupervisorView); 
+export default withRouter(Supervisor); 

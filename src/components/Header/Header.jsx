@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Header.css";
+import "./Header.scss";
 import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -35,6 +35,7 @@ class Header extends Component {
                 <i className="System" class="fas fa-system">
                   {" "}
                   <span>Activity Report System</span>
+                  <div></div>
                   <span>Sophia Technology</span>
                 </i>
               </Link>
@@ -48,28 +49,28 @@ class Header extends Component {
                     <i class="fas fa-home"></i> Home
                   </Link>
                 </li>
-
-                <li>
-                  <Link to="/Dailyreport">
-                    <i class="fas fa-import"></i> Dailyreport
-                  </Link>
-                </li>
-
-
                 <li>
                   <Link to="/Officer">
                     <i class="fas fa-people-arrows"></i> Officer
                   </Link>
                 </li>
-
                 <li>
-                  <Link to="/create">
+                  <Link to="/Dailyreport">
+                    <i class="fas fa-import"></i> Dailyreport
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Supervisor">
                     <i class="fas fa-dollar-sign"></i> Supervisor
                   </Link>
                 </li>
-
                 <li>
-                  <Link to="/register">
+                  <Link to="/SupervisorReport">
+                    <i class="fas fa-import"></i> Supervisor Report
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Registration">
                     <i class="fas fa-user-plus"></i> Register
                   </Link>
                 </li>
@@ -79,7 +80,7 @@ class Header extends Component {
                     <i class="fas fa-sign-out-alt"></i> Logout Here
                   </Link>
                 </li>
-              </ul>
+                  </ul>
             </div>
             <div class="search-container">
               <form>

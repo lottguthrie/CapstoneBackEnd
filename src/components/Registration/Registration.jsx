@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './Registration.css';
+import './Registration.scss';
 import { withRouter } from "react-router-dom";
 
     function Registration() {

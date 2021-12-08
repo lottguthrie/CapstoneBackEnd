@@ -1,23 +1,22 @@
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 import jwtDecode from 'jwt-decode'
 import { useState, useEffect } from 'react';
-import BookCreator from './BookCreator/BookCreator';
-import ShoppingCart from './ShoppingCart/ShoppingCart';
 import Registration from './Registration/Registration';
 import Login from './Login/Login';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Header from './Header/Header'
 import Home from './Home/Home'
-import BookViewer from './BookViewer/BookViewer';
-import surveyJSON from './Survey/survey';
-import reportcreater from './Supervisor/ReportCreater';
-
+import surveyJSON from './Survey/Survey';
+import SupervisorReport from './Supervisor/SupervisorReport';
+import DailyReport from './Officer/DailyReport'
+import Officer from './Officer/Officer'
+import Supervisor from './Supervisor/Supervisor'
 
 function App() {
     
     const [user, setUser] = useState({})
-    const [loginUser, setUserLogin] = useState([])
+    const [userLogin, setUserLogin] = useState([])
     const [jwt, setJwt] = useState()
     const [loadData, setLoadData] = useState(false)
 
@@ -66,12 +65,12 @@ function App() {
                         <Home user={user}/>
                     </div>
                     </Route>
-                    <Route path="/dailyreport">
+                    <Route path="/DailyReport">
                     <div className="sections">
                         <DailyReport/>
                     </div>
                     </Route>
-                    <Route path="/login">
+                    <Route path="/Login">
                     <div className="sections">
                         <Login loginUserCall ={loginUser}/>
                     </div>
@@ -81,29 +80,29 @@ function App() {
                         <DailyReport/>
                     </div>
                     </Route>
-                    <Route path="/officer">
+                    <Route path="/Officer">
                     <div className="sections">
                         <Officer/>
                     </div>
                     </Route>
-                    <Route path="/supervisor">
+                    <Route path="/Supervisor">
                     <div className="sections">
                         <Supervisor/>
                     </div>
                     </Route>
-                    <Route path="/reportcreator">
+                    <Route path="/SupervisorReport">
                     <div className="sections">
-                      <Reportcreater/>
+                      <SupervisorReport/>
                     </div>  
                     </Route>
-                    <Route path="/register">
+                    <Route path="/Registration">
                     <div className="sections">
                       <Registration/>
                     </div>
                     </Route>
-                    <Route path="/survey">
+                    <Route path="/Survey">
                     <div id="surveyContainer">
-                      <Survey/>
+                      <surveyJSON/>
                     </div>
                     </Route>
             </Router>

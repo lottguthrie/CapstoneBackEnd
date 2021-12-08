@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import './DailyReport.css';
+import './DailyReport.scss';
 import { withRouter } from "react-router-dom";
 
 function DailyReport() {
@@ -24,7 +24,7 @@ function DailyReport() {
     
         let payload =  { 
             "CallsForService": parseInt(_callsForService),
-            "CaseNumbers": parseInt(_caseNumbersPulled),
+            "CaseNumbers": parseInt(_caseNumbers),
             "HoursWorked": parseInt(_hoursWorked),
             "Reports": parseInt(_reports),
             "Supplements": parseInt(_supplements),

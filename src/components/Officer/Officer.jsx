@@ -1,8 +1,8 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import axios from 'axios';
-import './Officer.css';
+import './Officer.scss';
 import { withRouter } from "react-router-dom";
-import DailyReport from './DailyReport';
+import DailyReport from './DailyReport'
 
 
 const OfficerView = (props) => {
@@ -11,12 +11,12 @@ const OfficerView = (props) => {
     async function addToDailyReport(officerId){
         let token = localStorage.getItem('token')
      
-        let newDailyreport={
-            ReportId: parseInt(reportId),
-            officerId: "",
+        let newDailyReport={
+            officerId: parseInt(officerId),
+            reportId: "",
             quantity: 1
         }
-        let res = await axios.post('https://localhost:44394/api/DailyReport', newDailyreport, { headers: {Authorization: 'Bearer ' + token}})
+        let res = await axios.post('https://localhost:44394/api/DailyReport', newDailyReport, { headers: {Authorization: 'Bearer ' + token}})
         return res.data
       }
     const getdailyreport = async () => {
@@ -40,7 +40,7 @@ const OfficerView = (props) => {
         <Fragment>
          <div className="DailyReports">
             <h1 className='dailyreportMargin'>Browse Dailyreports</h1>
-            {reports.map((dailyreport)=> (
+            {dailyreport.map((dailyreport)=> (
                 <div className='dailyreport'>
                     <h2>{dailyreport.title}</h2>
                     <h3>{dailyreport.title}</h3>
@@ -50,19 +50,13 @@ const OfficerView = (props) => {
                         <h3>{dailyreport.title}</h3>
                     </div>    
                     <div className='dailyreportname'><h3>$ {dailyreport.title}</h3></div>
-                    <button onClick={()=>SubmitEvent(dailyreport.DailyreportId)}>Submit To Supervisor</button>
-                    <button onClick={()=>addToDailyReport(officer.OfficerId)}>Add Daily Report</button>
+                    <button onClick={()=>addToDailyReport(dailyreport.DailyreportId)}>Submit To Supervisor</button>
+                    <button onClick={()=>addToDailyReport(dailyreport.OfficerId)}>Add Daily Report</button>
+
                 </div>
                 )
-                <div>
-                <li>
-                  <Link to="/Dailyreport">
-                    <i class="fas fa-import"></i> Daily Report
-                  </Link>
-                  <Link to="/Survey">
-                    <i class="fas fa-rocketchat"></i> Employee Survey
-                  </Link>
-                </li>  
+                
+
                 
                 )
             }
