@@ -15,4 +15,4 @@ class MainApp extends React.Component {
   }
 }
 
-ReactDOM.render(<MainApp />, document.getElementById("root"));
+ReactDOM.render(<MainApp />, document.getElementById("root"))

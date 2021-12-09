@@ -57,7 +57,7 @@ function App() {
           console.log("User has logged out")
         }
 
-        filterOfficer = (filtered) => {
+        FilterSearch = (filtered) => {
           this.setState({
               officers:filtered
           })

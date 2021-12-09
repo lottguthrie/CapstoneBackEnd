@@ -7,7 +7,6 @@ class FilterSearch extends Component {
         super(props);
         this.state = {
          searchWord:'',
-         searchInteger: '',
          searchDate: ''
         };
     }
@@ -25,7 +24,7 @@ class FilterSearch extends Component {
             if (Officer.last_name.toLowerCase().includes(this.state.searchWord.toLowerCase())){
                 return Officer
             }
-            if (Officer.badge_number.Integer().includes(this.state.searchInteger.toInteger())){
+            if (Officer.badge_number.toLowerCase().includes(this.state.searchInteger.toLowerCase())){
                 return Officer
             }
             if (Officer.first_name.toLowerCase().includes(this.state.searchWord.toLowerCase())){
@@ -38,7 +37,7 @@ class FilterSearch extends Component {
         });
         this.setState({
             searchWord:'',
-            searchInteger:''
+            searchDate:'',
         })
         this.props.filterAction(results)
     };
@@ -72,18 +71,26 @@ class FilterSearch extends Component {
         this.props.filterAction(results)
     };
 
+    handleChange = (event) => {
+        this.setState({
+            [event.target.last_name]: event.target.value,
+            [event.target.badge_number]: event.target.value,
+            [event.target.first_name]: event.target.value
+
+        })
+    };
 
     handleSubmit = (event) => {
         event.preventDefault();
         let results = this.props.search.filter(Supervisor => {
             if (Officer.last_name.toLowerCase().includes(this.state.searchWord.toLowerCase())){
-                return officer
+                return Officer
             }
-            if (officer.badgeNumber.Integer().includes(this.state.searchInteger.Integer())){
-                return officer
+            if (Officer.badge_number.toLowerCase().includes(this.state.searchWord.toLowerCase())){
+                return Officer
             }
-            if (officer.firstName.toLowerCase().includes(this.state.searchWord.toLowerCase())){
-                return officer
+            if (Officer.first_name.toLowerCase().includes(this.state.searchWord.toLowerCase())){
+                return Officer
             }
 
             else{
@@ -92,7 +99,6 @@ class FilterSearch extends Component {
         });
         this.setState({
             searchWord:'',
-            searchInteger:''
         })
         this.props.filterAction(results)
     };
@@ -101,8 +107,8 @@ class FilterSearch extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let results = this.props.search.filter(SupervisorReport => {
-            if (SupervisorReport.supervisor_report_id.Integer().includes(this.state.searchInteger.Integer())){
+        let results = this.props.search.filter(DailyReport => {
+            if (DailyReport.supervisor_report_id.toLowerCase().includes(this.state.searchWord.toLowerCase())){
                 return DailyReport
             }
             if (DailyReport.date.DateTimeField().includes(this.state.searchDate.DateTimeField())){
@@ -125,7 +131,7 @@ class FilterSearch extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="Search" name="searchWord" title="search" type="text" value={this.state.searchWord} onChange={this.handleChange} />
-                    
+                    <input placeholder="Search" name="searchWord" title="search" type="integer" value={this.state.searchWord} onChange={this.handleChange} />
                     <button className="button1" type='submit' value="search">Submit</button>
                 </form>
                 <button className='button' onClick={this.props.refresh}>Refresh List</button>

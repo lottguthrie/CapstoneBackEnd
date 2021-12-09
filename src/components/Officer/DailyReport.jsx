@@ -28,14 +28,14 @@ function DailyReport() {
             "HoursWorked": parseInt(_hours_worked),
             "Reports": parseInt(_reports),
             "Supplements": parseInt(_supplements),
-            "AssignedVehicle": _assigned_vehicle,
-            "MilesDriven": parseInt(_miles_driven),
-            "AssignedArea": _assigned_area,
-            "CitationsIssued": parseInt(_citations_issued),
-            "WarningsIssued": parseInt(_warnings_issued),
-            "CitizenContacts": parseInt(_citizen_contacts),
-            "TrafficStops": parseInt(_traffic_stops),
-            "JuvenileContacts": parseInt(__juvenile_contacts),
+            "assigned_vehicle": _assigned_vehicle,
+            "miles_driven": parseInt(_miles_driven),
+            "assigned_area": _assigned_area,
+            "citations_issued": parseInt(_citations_issued),
+            "warnings_issued": parseInt(_warnings_issued),
+            "citizen_contacts": parseInt(_citizen_contacts),
+            "traffic_stops": parseInt(_traffic_stops),
+            "juvenile_contacts": parseInt(_juvenile_contacts),
          };
         console.log(payload)
         let res = await axios.post('https://localhost:44394/api/Officer/DailyReport', payload);

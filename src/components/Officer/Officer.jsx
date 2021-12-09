@@ -7,11 +7,11 @@ import DailyReport from './DailyReport'
 const OfficerView = (props) => {
     const [ DailyReport, setDailyReport] = useState([])
 
-    async function addToDailyReport(officer_id){
+    async function addToDailyReport(Officer_id){
         let token = localStorage.getItem('token')
      
         let newDailyReport={
-            officer_id: parseInt(officer_id),
+            Officer_id: parseInt(Officer_id),
             report_id: "",
             quantity: 1
         }
@@ -39,18 +39,18 @@ const OfficerView = (props) => {
         <Fragment>
          <div className="DailyReports">
             <h1 className='dailyreportMargin'>Browse Dailyreports</h1>
-            {DailyReport.map((DailyReport)=> (
+            {DailyReport.map((Officer_id)=> (
                 <div className='dailyreport'>
-                   <h2>Officer{officer_id.last_name}</h2>
-                    <h3>{officer_id.first_name}</h3>
-                    <h3>{officer_id.middle_name}</h3>
+                   <h2>Officer{Officer_id.last_name}</h2>
+                    <h3>{Officer_id.first_name}</h3>
+                    <h3>{Officer_id.middle_name}</h3>
                     <div>
-                        <h3>{officer_id.badge_number}</h3>
-                        <h3>{officer_id.officer_id}</h3>
+                        <h3>{Officer_id.badge_number}</h3>
+                        <h3>{Officer_id.officer_id}</h3>
                     </div>    
                     <div className='DailyReportName'><h3>$ {DailyReport.OfficerView}</h3></div>
                     <button onClick={()=>addToDailyReport(DailyReport.report_id)}>Submit To Supervisor</button>
-                    <button onClick={()=>addToDailyReport(DailyReport.officer_id)}>Add Daily Report</button>
+                    <button onClick={()=>addToDailyReport(DailyReport.Officer_id)}>Add Daily Report</button>
 
                 </div>
                 )

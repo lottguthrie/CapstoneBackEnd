@@ -6,51 +6,51 @@ function SupervisorReport() {
     async function handleSubmitClick(event){
         event.preventDefault();
         console.log("report generated")
-        let _totalCallsForService= document.getElementById("TotalCallsForService").value
-        let _totalCaseNumbersPulled = document.getElementById("TotalCaseNumbersPulled").value
-        let _totalCAseNumbersCompleted = document.getElementById("TotalCaseNumbersCompleted").value
-        let _totalReports = document.getElementById("totalReports").value
-        let _totalSupplements = document.getElementById("totalSupplements").value
-        let _totalVehiclesAssigned = document.getElementById("totalVehiclesAssigned").value
-        let _totalMilesDriven = document.getElementById("totalMilesDriven").value
-        let _officersOnRoad = document.getElementById("officersOnRoad").value
-        let _officersOnDesk = document.getElementById("officersOnDesk").value
-        let _officersOnJailDuty = document.getElementById("officersOnJailDuty").value
-        let _officersOnLightDuty = document.getElementById("officersOnLightDuty").value
-        let _officersOutSick = document.getElementById("officersOutSick").value
-        let _officersInTraining = document.getElementById("officersInTraining").value
-        let _officersOnVacation = document.getElementById("officersOnVacation").value
-        let _officersAssignedElsewhere = document.getElementById("officersAssignedElsewhere").value
-        let _totalCitationsIssued = document.getElementById("totalCitationsIssued").value
-        let _totalWarningsIssued = document.getElementById("totalWarningsIssued").value
-        let _totalCitizenContacts = document.getElementById("totalCitizenContacts").value
-        let _totalTrafficStops = document.getElementById("totalTrafficStops").value
-        let _totalArrestMade = document.getElementById("totalArrestMade").value
-        let _totalJuvenileContacts = document.getElementById("totalJuvenileContacts").value
+        let _total_calls_for_service= document.getElementById("total_calls_for_service").value
+        let _total_case_numbers_pulled = document.getElementById("total_case_numbers_pulled").value
+        let _total_case_numbers_completed = document.getElementById("total_case_numbers_completed").value
+        let _total_reports = document.getElementById("total_reports").value
+        let _total_supplements = document.getElementById("total_supplements").value
+        let _total_vehicles_assigned = document.getElementById("total_vehicles_assigned").value
+        let _total_miles_driven = document.getElementById("total_miles_driven").value
+        let _officers_on_road = document.getElementById("officers_on_road").value
+        let _officers_on_desk = document.getElementById("officers_on_desk").value
+        let _officers_on_jail_duty = document.getElementById("officers_on_jail_duty").value
+        let _officers_on_light_duty = document.getElementById("officers_on_light_duty").value
+        let _officers_out_sick = document.getElementById("officers_out_sick").value
+        let _officers_in_training = document.getElementById("officers_in_training").value
+        let _officers_on_vacation = document.getElementById("officers_on_vacation").value
+        let _officers_assigned_elswhere = document.getElementById("officers_assigned_elswhere").value
+        let _total_citations_issued = document.getElementById("total_citations_issued").value
+        let _total_warnings_issued = document.getElementById("total_warnings_issued").value
+        let _total_citizen_contacts = document.getElementById("total_citizen_contacts").value
+        let _total_traffic_stops = document.getElementById("total_traffic_stops").value
+        let _total_arrest_made = document.getElementById("total_arrest_made").value
+        let _total_juvenile_contacts = document.getElementById("total_juvenile_contacts").value
 
     
         let payload =  { 
-            "TotalCallsForService": parseInt(_totalCallsForService),
-            "TotalCaseNumbersPulled": parseInt(_totalCaseNumbersPulled),
-            "TotalCaseNumbersCompleted": parseInt(_totalCAseNumbersCompleted),
-            "TotalReports": parseInt(_totalReports),
-            "TotalSupplements": parseInt(_totalSupplements),
-            "TotalVehiclesAssigned": parseInt(_totalVehiclesAssigned),
-            "TotalMilesDriven": parseInt(_totalMilesDriven),
-            "OfficersOnRoad": parseInt(_officersOnRoad),
-            "OfficersOnDesk": parseInt(_officersOnDesk),
-            "OfficersOnJailDuty": parseInt(_officersOnJailDuty),
-            "OfficersOnLightDuty": parseInt(_officersOnLightDuty),
-            "OfficersOutSick": parseInt(_officersOutSick),
-            "OfficersInTraining": parseInt(_officersInTraining),
-            "OfficersOnVacation": parseInt(_officersOnVacation),
-            "OfficersAssignedElsewhere": parseInt(_officersAssignedElsewhere),
-            "TotalCitationsIssued": parseInt(_totalCitationsIssued),
-            "TotalWarningsIssued": parseInt(_totalWarningsIssued),
-            "TotalCitizenContacts": parseInt(_totalCitizenContacts),
-            "TotalTrafficStops": parseInt(_totalTrafficStops),
-            "TotalArrestMade": parseInt(_totalArrestMade),
-            "TotalJuvenileContacts": parseInt(_totalJuvenileContacts),
+            "total_calls_for_service": parseInt(_total_calls_for_service),
+            "total_case_numbers_pulled": parseInt(_total_case_numbers_pulled),
+            "total_case_numbers_completed": parseInt(_total_case_numbers_completed),
+            "total_reports": parseInt(_total_reports),
+            "total_supplements": parseInt(_total_supplements),
+            "total_vehicles_assigned": parseInt(_total_vehicles_assigned),
+            "total_miles_driven": parseInt(_total_miles_driven),
+            "officers_on_road": parseInt(_officers_on_road),
+            "officers_on_desk": parseInt(_officers_on_desk),
+            "officers_on_jail_duty": parseInt(_officers_on_jail_duty),
+            "officers_on_light_duty": parseInt(_officers_on_light_duty),
+            "officers_out_sick": parseInt(_officers_out_sick),
+            "officers_in_training": parseInt(_officers_in_training),
+            "officers_on_vacation": parseInt(_officers_on_vacation),
+            "officers_assigned_elswhere": parseInt(_officers_assigned_elswhere),
+            "total_citations_issued": parseInt(_total_citations_issued),
+            "total_warnings_issued": parseInt(_total_warnings_issued),
+            "total_citizen_contacts": parseInt(_total_citizen_contacts),
+            "total_traffic_stops": parseInt(_total_traffic_stops),
+            "total_arrest_made": parseInt(_total_arrest_made),
+            "total_juvenile_contacts": parseInt(_total_juvenile_contacts),
          };
         console.log(payload)
         let res = await axios.post('https://localhost:44394/api/Supervisor/SupervisorReport', payload);
@@ -63,26 +63,27 @@ function SupervisorReport() {
     return(
         <div className="supervisorReport">
             <form>
-                <input type="number" id="totalCallsForService"  placeholder="Enter the total calls for service" />
-                <input type="number" id="totalCaseNumbersPulled"  placeholder ="Enter the total case numbers pulled" />
-                <input type="number" id="totalCaseNumbersCompleted"  placeholder ="Enter the total case numbers completed" />
-                <input type="number" id="totalReports"  placeholder ="Enter the total number of reports taken" />
-                <input type="number" id="totalSupplements"  placeholder ="Enter the total number of supplements completed" />
-                <input type="number" id="totalVehiclesAssigned"  placeholder ="Enter the total number of assigned vehicles" />
-                <input type="number" id="totalMilesDriven"  placeholder="Enter the total number of miles driven" />
-                <input type="number" id="officersOnRoad"  placeholder ="Enter the number of officers on the road" />
-                <input type="number" id="officersOnDesk"  placeholder ="Enter the number of officers on the desk" />
-                <input type="number" id="officersOnJailDuty"  placeholder ="Enter the number of officers of jail duty" />
-                <input type="number" id="officersOnLightDuty"  placeholder ="Enter the number of officers on light duty" />
-                <input type="number" id="officersOutSick" placeholder="Enter the number of officers out sick" />
-                <input type="number" id="officersInTraining"  placeholder ="Enter the number of officers in training" />
-                <input type="number" id="officersOnVacation"  placeholder ="Enter the number of officers on vacation" />
-                <input type="number" id="officersAssignedElsewhere"  placeholder ="Enter the number of officers assigned to other divisions" />
-                <input type="number" id="totalCitationsIssued"  placeholder ="Enter the total number of citations issued" />
-                <input type="number" id="totalWarningsIssued" placeholder="Enter the total number of warnings issed" />
-                <input type="number" id="totalCitizenContacts"  placeholder ="Enter the total number of citizen contacts" />
-                <input type="number" id="totalArrestMade"  placeholder ="Enter the number of arest made" />
-                <input type="number" id="totalJuvenileContacts"  placeholder ="Enter the number of juvenile contacts made" />
+                <input type="number" id="total_calls_for_service"  placeholder="Enter the total calls for service" />
+                <input type="number" id="total_case_numbers_pulled"  placeholder ="Enter the total case numbers pulled" />
+                <input type="number" id="total_case_numbers_completed"  placeholder ="Enter the total case numbers completed" />
+                <input type="number" id="total_reports"  placeholder ="Enter the total number of reports taken" />
+                <input type="number" id="total_supplements"  placeholder ="Enter the total number of supplements completed" />
+                <input type="number" id="total_vehicles_assigned"  placeholder ="Enter the total number of assigned vehicles" />
+                <input type="number" id="total_miles_driven"  placeholder="Enter the total number of miles driven" />
+                <input type="number" id="officers_on_road"  placeholder ="Enter the number of officers on the road" />
+                <input type="number" id="officers_on_desk"  placeholder ="Enter the number of officers on the desk" />
+                <input type="number" id="officers_on_jail_duty"  placeholder ="Enter the number of officers of jail duty" />
+                <input type="number" id="officers_on_light_duty"  placeholder ="Enter the number of officers on light duty" />
+                <input type="number" id="officers_out_sick" placeholder="Enter the number of officers out sick" />
+                <input type="number" id="officers_in_training"  placeholder ="Enter the number of officers in training" />
+                <input type="number" id="officers_on_vacation"  placeholder ="Enter the number of officers on vacation" />
+                <input type="number" id="officers_assigned_elswhere"  placeholder ="Enter the number of officers assigned to other divisions" />
+                <input type="number" id="total_citations_issued"  placeholder ="Enter the total number of citations issued" />
+                <input type="number" id="total_warnings_issued" placeholder="Enter the total number of warnings issed" />
+                <input type="number" id="total_citizen_contacts"  placeholder ="Enter the total number of citizen contacts" />
+                <input type="number" id="total_traffic_stops"  placeholder ="Enter the total number of traffic stops" />
+                <input type="number" id="total_arrest_made"  placeholder ="Enter the number of arest made" />
+                <input type="number" id="total_juvenile_contacts"  placeholder ="Enter the number of juvenile contacts made" />
                 <button type="submit" onClick={handleSubmitClick}>Submit Report</button>
             </form>
             </div>
