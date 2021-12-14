@@ -1,121 +1,203 @@
-import axios from 'axios';
-import jwtDecode from 'jwt-decode'
-import { useState, useEffect } from 'react';
-import Registration from './Registration/Registration';
-import FilterSearch from './SearchBar/SearchBar';
-import Login from './Login/Login';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Header from './Header/Header'
-import Home from './Home/Home'
-import surveyJSON from './Survey/Survey';
-import SupervisorReport from './Supervisor/SupervisorReport';
-import DailyReport from './Officer/DailyReport'
-import Officer from './Officer/Officer'
-import Supervisor from './Supervisor/Supervisor'
-import { withRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { Router, Routes } from "react-router";
+import { createBrowserHistory } from "history";
+import axios from "axios";
+import { useLocation, Route } from "react-router-dom";
+import AdminNavbar from "./AdminNavbar";
+import Sidebar from "./Sidebar";
+import FixedPlugin from "./FixedPlugin";
+import sidebarImage from "./Sidebar";
+import routes from "./Routes";
 
-function App() {
-    
-    const [user, setUser] = useState({})
-    const [userLogin, setUserLogin] = useState([])
-    const [jwt, setJwt] = useState()
-    const [loadData, setLoadData] = useState(false)
 
-    
-    const getUserJWT = () => {
-        const jwt = localStorage.getItem('token');
-        try {
-          const user = jwtDecode(jwt);
-          setUser(user)
-          console.log("get user jwt", user)
-        } catch {
-        }
+const history = createBrowserHistory();
+function  App() {
+  const [image, setImage] = React.useState(sidebarImage);
+  const [color, setColor] = React.useState("black");
+  const [hasImage, setHasImage] = React.useState(true);
+  const location = useLocation();
+  const mainPanel = React.useRef(null);
+  const getRoutes = (routes) => {
+    return routes.map((prop, key) => {
+      if (prop.layout === "/admin") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            render={(props) => <prop.component {...props} />}
+            key={key}
+          />
+        );
+      } else {
+        return null;
       }
-    
-      useEffect(() =>{
-        getUserJWT();
-        getUserLogin();
-        setLoadData(!loadData)   
-      },[])
+    });
+  };
+  React.useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainPanel.current.scrollTop = 0;
+    if (
+      window.innerWidth < 993 &&
+      document.documentElement.className.indexOf("nav-open") !== -1
+    ) {
+      document.documentElement.classList.toggle("nav-open");
+      var element = document.getElementById("bodyClick");
+      element.parentNode.removeChild(element);
+    }
+  }, [location]);
 
-      const getUserLogin = async () => {
-        const response = await axios.get('https://localhost:44394/api/authentication/user', { headers: {Authorization: 'Bearer ' + jwt}});
-        setUserLogin(response.data);
-        console.log(response.data)
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      localToken: "",
+      OfficerView: [],
+      DailyReport: [],
+      Supervisor: [],
+      SupervisorReport: [],
+      Survey: [],
+    };
+    this.getAllOfficerView = this.getAllOfficerView.bind(this)
+    this.deleteOfficerView = this.deleteOfficerView.bind(this)
+    this.getAllDailyReport = this.getAllDailyReport.bind(this)
+    this.deleteDailyReport = this.deleteDailyReport.bind(this)
+    this.getAllSupervisor = this.getAllSupervisor.bind(this)
+    this.deleteSupervisor = this.deleteSupervisor.bind(this)
+    this.getAllSupervisorReport = this.getAllSupervisorReport.bind(this)
+    this.deleteSupervisorReport = this.deleteSupervisorReport.bind(this)
+    this.getAllSurvey = this.getAllSurvey.bind(this)
+    this.deleteSurvey = this.deleteSurvey.bind(this)
+  }
+
+  componentDidMount() {
+    this.getCurrentUser();
+    this.getAllOfficerView();
+    this.getAllDailyReport();
+    this.getAllSupervisor();
+    this.getAllSupervisorReport();
+    this.getAllSurvey();
+
+  }
+
+  getCurrentUser = async () => {
+    try {
+      const jwt = localStorage.getItem("token");
+      if (jwt) {
+        this.setState({
+            loggedIn: true,
+          });
+      } else {
+        this.setState({
+            loggedIn: false,
+          });
       }
+    } catch (err) {
+      console.log(err);
+      this.setState({
+        loggedIn: false,
+      });
+    }
+  };
 
-      const loginUser = async (loginUser) => {
-        let response= await axios.post('https://localhost:44394/api/authentication/login', loginUser);
-        localStorage.setItem('token', response.data.token);
-        console.log("response axios call", response.data.token)
-        setJwt(localStorage.getItem('token'));
-      }
+  loginUser = () => {
+    this.setState({
+        loggedIn: true,
+      });
+  }
 
-       const logOut = ()=>{
-          localStorage.removeItem("token");
-          setUser({})
-          console.log("User has logged out")
-        }
+  getAllOfficerView = async () => {
+    let response = await axios.get('http://127.0.0.1:8000/drf_jwt_capstone_backend/authentication/migrations/views/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+    this.setState({
+        OfficerView: response.data
+    })
+  }
 
-        FilterSearch = (filtered) => {
-          this.setState({
-              officers:filtered
-          })
-      }
+  deleteOfficerView = async (id) => {
+    try{
+      await axios.delete('http://127.0.0.1:8000/drf_jwt_capstone_backend/authentication/migrations/views/${id}/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+      this.getAllOfficerView();
+    }
+    catch(event){
+    }
+  }
 
-        return (   
-          <div>
-          <Header logout={logOut}/> 
-          <FilterSearch search={this.state.officers} filterAction={this.filterOfficer} refresh={this.makeGetRequest}/>
-            <Router>
-                    <Route path="/" exact={true}>
-                    <div className="sections">
-                        <Home user={user}/>
-                    </div>
-                    </Route>
-                    <Route path="/DailyReport">
-                    <div className="sections">
-                        <DailyReport/>
-                    </div>
-                    </Route>
-                    <Route path="/Login">
-                    <div className="sections">
-                        <Login loginUserCall ={loginUser}/>
-                    </div>
-                    </Route>
-                    <Route path="/dailyreport">
-                    <div className="sections">
-                        <DailyReport/>
-                    </div>
-                    </Route>
-                    <Route path="/Officer">
-                    <div className="sections">
-                        <Officer/>
-                    </div>
-                    </Route>
-                    <Route path="/Supervisor">
-                    <div className="sections">
-                        <Supervisor/>
-                    </div>
-                    </Route>
-                    <Route path="/SupervisorReport">
-                    <div className="sections">
-                      <SupervisorReport/>
-                    </div>  
-                    </Route>
-                    <Route path="/Registration">
-                    <div className="sections">
-                      <Registration/>
-                    </div>
-                    </Route>
-                    <Route path="/Survey">
-                    <div id="surveyContainer">
-                      <surveyJSON/>
-                    </div>
-                    </Route>
-            </Router>
-            </div>
-        )
+  getAllDailyReport = async () => {
+    let response = await axios.get('http://127.0.0.1:8000/drf_jwt_capstone_backend/dailyreport/migrations/views/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+    this.setState({
+        DailyReport: response.data
+    })
+  }
+
+  deleteDailyReport = async (id) => {
+    try{
+      await axios.delete('http://127.0.0.1:8000/drf_jwt_capstone_backend/dailyreport/migrations/views/${id}/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+      this.getAllDailyReport();
+    }
+    catch(event){
+    }
+  }
+
+  getAllSupervisor = async () => {
+    let response = await axios.get('http://127.0.0.1:8000/drf_jwt_capstone_backend/supervisor/migrations/views/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+    this.setState({
+        Supervisor: response.data
+    })
+  }
+
+  deleteSupervisor = async (id) => {
+    try{
+      await axios.delete('http://127.0.0.1:8000/drf_jwt_capstone_backend/supervisor/migrations/views/${id}/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+      this.getAllSupervisor();
+    }
+    catch(event){
+    }
+  };
+
+  getAllSurvey = async () => {
+    let response = await axios.get('http://127.0.0.1:8000/drf_jwt_capstone_backend/survey/migrations/views/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+    this.setState({
+        Surveyr: response.data
+    })
+  }
+
+  deleteSurvey = async (id) => {
+    try{
+      await axios.delete('http://127.0.0.1:8000/drf_jwt_capstone_backend/survey/migrations/views/${id}/', {headers:{Authorization: "Bearer " + localStorage.getItem('token')}});
+      this.getAllSurvey();
+    }
+    catch(event){
+    }
+  };
+
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Router history={history}>
+      <div className="wrapper">
+        <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
+        <div className="main-panel" ref={mainPanel}>
+          <AdminNavbar />
+          <div className="content">
+            <Route>{getRoutes(routes)}</Route>
+          </div>
+        </div>
+      </div>
+      <FixedPlugin
+        hasImage={hasImage}
+        setHasImage={() => setHasImage(!hasImage)}
+        color={color}
+        setColor={(color) => setColor(color)}
+        image={image}
+        setImage={(image) => setImage(image)}
+        />
+        </Router>
+      </div>
+    );
+  }
+}
 }
 
-export default withRouter(App);
+export default App;

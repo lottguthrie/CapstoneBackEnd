@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import { HomePage } from "./Home";
 import { CreatorPage } from "./Creator";
@@ -50,7 +50,7 @@ export default function SurveyJSReactApplication() {
           </div>
         </nav>
 
-        <Switch>
+        <Routes>
           <Route exact path="/">
             <HomePage />
           </Route>
@@ -72,7 +72,7 @@ export default function SurveyJSReactApplication() {
           <Route path="/analyticstabulator">
             <AnalyticsTabulatorPage />
           </Route>
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );

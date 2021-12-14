@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as SurveyKo from "survey-knockout";
-import * as SurveyJSCreator from "survey-creator";
-import "survey-creator/survey-creator.css";
+import * as SurveyJSCreator from "survey-creator-react";
+import "survey-creator-react/survey-creator-react.css";
 
 import "jquery-ui/themes/base/all.css";
 import "nouislider/distribute/nouislider.css";
